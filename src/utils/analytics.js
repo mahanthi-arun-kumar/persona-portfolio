@@ -12,8 +12,7 @@ class Analytics {
 
     try {
       ReactGA.initialize(GA_MEASUREMENT_ID, {
-        testMode: process.env.NODE_ENV === 'development',
-        debug: true,
+        testMode: true,
         gtagOptions: {
           send_page_view: false // We'll send page views manually
         }
