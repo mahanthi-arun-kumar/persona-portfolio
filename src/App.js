@@ -10,10 +10,20 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import SideElements from './components/SideElements';
+import Analytics from './utils/analytics';
 
 // Main App Component
 function App() {
     const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        // Initialize Google Analytics when the app loads
+        Analytics.initialize();
+    
+        // Track the initial page view
+        Analytics.trackPageView();
+  Analytics.trackButtonClick('Test Button', 'App Component');
+      }, []);
 
     useEffect(() => {
         const handleScroll = () => {

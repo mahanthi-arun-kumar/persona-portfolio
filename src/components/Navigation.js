@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Analytics from '../utils/analytics';
 
 const Navigation = ({ isScrolled }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,6 +14,18 @@ const Navigation = ({ isScrolled }) => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [isMenuOpen]);
+    const handleResumeDownload = () => {
+        // Track the resume download event
+        Analytics.trackResumeDownload('Mahanthi_Arun_Kumar_Resume.pdf');
+    
+        // Optional: Also track as a button click
+        Analytics.trackButtonClick('Download Resume', 'Hero Section');
+      };
+
+      const handleNavigationOptionClick = (buttonName,location) => {
+        // Track the navigation option click event
+        Analytics.trackButtonClick(buttonName, location);
+      };
 
     useEffect(() => {
         if (isMenuOpen) {
@@ -41,22 +54,23 @@ const Navigation = ({ isScrolled }) => {
                 <div>
                     <ul className="nav-links">
                         <li>
-                            <a href="#about">01. About</a>
+                            <a href="#about" onClick={() => handleNavigationOptionClick('01. About', 'Hero Section')}>01. About</a>
                         </li>
                         <li>
-                            <a href="#experience">02. Experience</a>
+                            <a href="#experience" onClick={() => handleNavigationOptionClick('02. Experience', 'Hero Section')}>02. Experience</a>
                         </li>
                         <li>
-                            <a href="#work">03. Work</a>
+                            <a href="#work" onClick={() => handleNavigationOptionClick('03. Work', 'Hero Section')}>03. Work</a>
                         </li>
                         <li>
-                            <a href="#contact">04. Contact</a>
+                            <a href="#contact" onClick={() => handleNavigationOptionClick('04. Contact', 'Hero Section')}>04. Contact</a>
                         </li>
                         <li>
                             <a
                                 href="/resume.pdf"
                                 className="resume-button"
                                 download="resume.pdf"
+                                onClick={handleResumeDownload}
                             >
                                 Resume
                             </a>
@@ -92,7 +106,7 @@ const Navigation = ({ isScrolled }) => {
                             <a href="#contact" onClick={handleMenuItemClick}>Contact</a>
                         </li>
                     </ol>
-                    <a href="/resume.pdf" className="resume-link" download="resume.pdf">
+                    <a href="/resume.pdf" className="resume-link" download="resume.pdf" onClick={handleResumeDownload}>
                         Resume
                     </a>
                 </nav>
